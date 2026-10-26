@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cpSync, existsSync, mkdirSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -31,21 +31,70 @@ if (!existsSync(sourceAgentsDir)) {
   process.exit(1);
 }
 
-let targetDir;
-if (isGlobal) {
-  targetDir = join(homedir(), '.gemini', 'antigravity', '.agents');
-  console.log(`Installing pstack-antigravity globally to: ${targetDir}`);
-} else if (targetArg) {
-  targetDir = resolve(targetArg, '.agents');
-  console.log(`Installing pstack-antigravity to project: ${targetDir}`);
-} else {
-  targetDir = resolve(process.cwd(), '.agents');
-  console.log(`Installing pstack-antigravity to current project: ${targetDir}`);
-}
-
 try {
-  mkdirSync(targetDir, { recursive: true });
-  cpSync(sourceAgentsDir, targetDir, { recursive: true });
+  if (isGlobal) {
+    const home = homedir();
+    console.log(`Installing pstack-antigravity globally across Antigravity runtime...`);
+
+    // 1. Install skills to ~/.gemini/skills/
+    const globalSkillsDir = join(home, '.gemini', 'skills');
+    mkdirSync(globalSkillsDir, { recursive: true });
+    cpSync(join(sourceAgentsDir, 'skills'), globalSkillsDir, { recursive: true });
+    console.log(`✔ Skills installed to: ${globalSkillsDir}`);
+
+    // 2. Install plugin to ~/.gemini/config/plugins/pstack/
+    const globalPluginDir = join(home, '.gemini', 'config', 'plugins', 'pstack');
+    mkdirSync(globalPluginDir, { recursive: true });
+    cpSync(join(sourceAgentsDir, 'plugins', 'pstack'), globalPluginDir, { recursive: true });
+    console.log(`✔ Plugin installed to: ${globalPluginDir}`);
+
+    // 3. Register ~/.gemini/skills in ~/.gemini/config/skills.json
+    const globalConfigDir = join(home, '.gemini', 'config');
+    mkdirSync(globalConfigDir, { recursive: true });
+    const skillsJsonPath = join(globalConfigDir, 'skills.json');
+    let skillsConfig = { entries: [] };
+    if (existsSync(skillsJsonPath)) {
+      try {
+        skillsConfig = JSON.parse(readFileSync(skillsJsonPath, 'utf-8'));
+        if (!Array.isArray(skillsConfig.entries)) skillsConfig.entries = [];
+      } catch {
+        skillsConfig = { entries: [] };
+      }
+    }
+    const alreadyRegistered = skillsConfig.entries.some((entry) => entry.path === globalSkillsDir);
+    if (!alreadyRegistered) {
+      skillsConfig.entries.push({ path: globalSkillsDir });
+      writeFileSync(skillsJsonPath, JSON.stringify(skillsConfig, null, 2), 'utf-8');
+      console.log(`✔ Configured global skills in: ${skillsJsonPath}`);
+    }
+
+    // 4. Install full .agents to ~/.gemini/antigravity/.agents
+    const antigravityAgentsDir = join(home, '.gemini', 'antigravity', '.agents');
+    mkdirSync(antigravityAgentsDir, { recursive: true });
+    cpSync(sourceAgentsDir, antigravityAgentsDir, { recursive: true });
+    console.log(`✔ Agents runtime synced to: ${antigravityAgentsDir}`);
+
+    // 5. Global rules in ~/.gemini/GEMINI.md
+    const globalGeminiMd = join(home, '.gemini', 'GEMINI.md');
+    const rulesSource = join(sourceAgentsDir, 'rules', 'AGENTS.md');
+    if (existsSync(rulesSource)) {
+      const rulesContent = readFileSync(rulesSource, 'utf-8');
+      writeFileSync(globalGeminiMd, rulesContent, 'utf-8');
+      console.log(`✔ Global rules synced to: ${globalGeminiMd}`);
+    }
+  } else {
+    let targetDir;
+    if (targetArg) {
+      targetDir = resolve(targetArg, '.agents');
+      console.log(`Installing pstack-antigravity to project: ${targetDir}`);
+    } else {
+      targetDir = resolve(process.cwd(), '.agents');
+      console.log(`Installing pstack-antigravity to current project: ${targetDir}`);
+    }
+    mkdirSync(targetDir, { recursive: true });
+    cpSync(sourceAgentsDir, targetDir, { recursive: true });
+  }
+
   console.log(`\n✔ Successfully installed pstack-antigravity!`);
   console.log(`\nTo get started in Google Antigravity:`);
   console.log(`  1. Type '/poteto-mode' to run tasks with SpaceX-inspired engineering discipline.`);
