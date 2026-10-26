@@ -1,0 +1,22 @@
+name: Feature Request
+description: Propose a new engineering principle, playbook, or Antigravity tool adapter
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Propose a new capability or playbook for pstack-antigravity.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What engineering friction or agent limitation does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Playbook Steps
+      description: Describe the canonical domain shape, steps, or verification check.
+    validations:
+      required: true
