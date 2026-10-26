@@ -11,6 +11,7 @@ const sourceAgentsDir = join(packageRoot, '.agents');
 const args = process.argv.slice(2);
 const isGlobal = args.includes('--global') || args.includes('-g');
 const isHelp = args.includes('--help') || args.includes('-h');
+const targetArg = args.find((arg) => !arg.startsWith('-'));
 
 if (isHelp) {
   console.log(`
@@ -18,9 +19,9 @@ pstack-antigravity installer
 SpaceX-inspired engineering playbooks and skills natively ported for Google Antigravity
 
 Usage:
-  npx pstack-antigravity            Install to current workspace (.agents/)
-  npx pstack-antigravity --global   Install globally for all Antigravity projects
-  npx pstack-antigravity --help     Show this help message
+  npx pstack-antigravity [target-dir]   Install to current or target workspace (.agents/)
+  npx pstack-antigravity --global       Install globally for all Antigravity projects
+  npx pstack-antigravity --help         Show this help message
 `);
   process.exit(0);
 }
@@ -34,6 +35,9 @@ let targetDir;
 if (isGlobal) {
   targetDir = join(homedir(), '.gemini', 'antigravity', '.agents');
   console.log(`Installing pstack-antigravity globally to: ${targetDir}`);
+} else if (targetArg) {
+  targetDir = resolve(targetArg, '.agents');
+  console.log(`Installing pstack-antigravity to project: ${targetDir}`);
 } else {
   targetDir = resolve(process.cwd(), '.agents');
   console.log(`Installing pstack-antigravity to current project: ${targetDir}`);
