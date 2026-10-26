@@ -1,0 +1,10 @@
+{
+  "pstack-session-hook": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node .agents/plugins/pstack/scripts/session-start.mjs"
+      }
+    ]
+  }
+}
