@@ -1,0 +1,32 @@
+{
+  "name": "pstack-antigravity",
+  "version": "1.0.0",
+  "description": "SpaceX-inspired engineering playbooks and skills natively ported for Google Antigravity",
+  "type": "module",
+  "bin": {
+    "pstack-antigravity": "./bin/cli.js"
+  },
+  "scripts": {
+    "generate": "node tools/generate-skills.mjs",
+    "verify": "node tools/verify-skills.mjs",
+    "test:engine": "node tools/test-engine.mjs",
+    "test:unit": "node tests/subagent-dag.test.mjs && node tests/token-budget.test.mjs && node tests/eval-fixtures.test.mjs",
+    "test:evals": "node tools/run-evals.mjs",
+    "test": "node tools/verify-skills.mjs && node tools/test-engine.mjs && npm run test:unit && npm run test:evals"
+  },
+  "keywords": [
+    "antigravity",
+    "google-antigravity",
+    "pstack",
+    "poteto-mode",
+    "agent-skills",
+    "engineering-playbooks",
+    "spacex-engineering"
+  ],
+  "author": "pstack-antigravity contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pstack-antigravity/pstack-antigravity.git"
+  }
+}
