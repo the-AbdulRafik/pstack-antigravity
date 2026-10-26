@@ -1,0 +1,29 @@
+{
+  "runtime": "antigravity",
+  "tiers": {
+    "default": "inherit",
+    "strongest": "inherit",
+    "worker": "flash",
+    "linter": "flash_lite",
+    "panel": ["inherit", "flash", "flash_lite"]
+  },
+  "efforts": ["low", "medium", "high", "max"],
+  "defaultEffort": "high",
+  "available": ["inherit", "flash", "flash_lite", "pro"],
+  "roles": [
+    { "role": "coordinator", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "feature, refactoring", "model": "flash", "effort": "medium", "skill": "poteto-mode" },
+    { "role": "bug-fix", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "perf-issue", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "hillclimb", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "judgment and prose", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "strongest judgment", "model": "inherit", "effort": "high", "skill": "poteto-mode" },
+    { "role": "comment stripper", "model": "flash_lite", "effort": "low", "skill": "no-comments" },
+    { "role": "security reviewer", "model": "inherit", "effort": "high", "skill": "thermo-nuclear-review" },
+    { "role": "code quality reviewer", "model": "inherit", "effort": "high", "skill": "thermo-nuclear-code-quality-review" },
+    { "role": "arena runners", "model": "panel", "effort": "high", "skill": "arena" },
+    { "role": "architect runners", "model": "panel", "effort": "high", "skill": "architect" },
+    { "role": "interrogate reviewers", "model": "panel", "effort": "high", "skill": "interrogate" },
+    { "role": "swarm workers", "model": "flash", "effort": "medium", "skill": "swarm" }
+  ]
+}
