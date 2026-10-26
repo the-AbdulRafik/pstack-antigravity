@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Local decision trails & temporary checklists
+.audit/
+*.todo.md
+
+# Operating System & Editor artifacts
+.DS_Store
+Thumbs.db
+*.log
