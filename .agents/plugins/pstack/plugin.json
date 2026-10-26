@@ -1,0 +1,12 @@
+{
+  "name": "pstack",
+  "version": "1.0.0",
+  "description": "Native Google Antigravity port of Lauren Tan (@poteto)'s SpaceX-inspired engineering playbooks",
+  "author": "pstack-antigravity contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/the-AbdulRafik/pstack-antigravity",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/the-AbdulRafik/pstack-antigravity.git"
+  }
+}
