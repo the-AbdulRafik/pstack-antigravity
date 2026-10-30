@@ -23,10 +23,10 @@
     "engineering-playbooks",
     "spacex-engineering"
   ],
-  "author": "pstack-antigravity contributors",
+  "author": "Abdul Rafik",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pstack-antigravity/pstack-antigravity.git"
+    "url": "https://github.com/the-AbdulRafik/pstack-antigravity.git"
   }
 }
