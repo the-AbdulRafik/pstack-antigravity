@@ -10,7 +10,7 @@
 
 **Lauren Tan ([@poteto](https://github.com/poteto))'s SpaceX-inspired engineering playbooks and skills, natively ported for the Google Antigravity agentic workspace.**
 
-[Installation](#installation) • [How It Works](#how-it-works) • [24 Principles](#the-24-engineering-principles) • [23 Playbooks](#the-23-operational-playbooks) • [Subagents](#sandboxed-subagent-dag) • [Attribution](#attribution)
+[Installation](#installation) • [Architecture](#architecture) • [Quickstart](#quickstart) • [24 Principles](#the-24-engineering-principles) • [23 Playbooks](#the-23-operational-playbooks) • [Subagents](#sandboxed-subagent-dag) • [Attribution](#attribution--lineage)
 
 </div>
 
@@ -20,7 +20,7 @@
 
 Modern AI coding assistants suffer from severe bad habits: they patch symptoms with defensive `if (!x) return` guards, hallucinate completion without running code, clutter repositories with corpse comments, and pester developers with trivial technical forks.
 
-**`pstack-antigravity`** eliminates AI slop by applying the **SpaceX 5-Step Engineering Algorithm** (*Question requirements $\to$ Delete parts $\to$ Simplify $\to$ Accelerate cycle time $\to$ Automate*) to agentic workflows inside Google Antigravity.
+**`pstack-antigravity`** eliminates AI slop by applying the **SpaceX 5-Step Engineering Algorithm** (*1. Question requirements → 2. Delete parts → 3. Simplify → 4. Accelerate cycle time → 5. Automate*) to agentic workflows inside Google Antigravity.
 
 Originally developed for Cursor by Lauren Tan and researched across harnesses by Michael Denyer, this port brings the complete pstack discipline natively to **Google Antigravity 2.0**.
 
@@ -40,25 +40,27 @@ Originally developed for Cursor by Lauren Tan and researched across harnesses by
 
 ```mermaid
 flowchart TD
-    User["Developer Prompt (/poteto-mode fix bug)"] --> AG["Antigravity Discovery Engine"]
-    
-    subgraph Antigravity_Phase1["Phase 1: Progressive Disclosure (Low Context)"]
-        AG --> Scan[".agents/skills/ metadata index loaded (< 600 tokens)"]
-        Scan --> Match{"Matches Playbook / Intent?"}
+    User["Developer Prompt<br/>/poteto-mode fix bug"] --> AG["Antigravity Discovery Engine"]
+
+    subgraph Phase1["Phase 1: Progressive Disclosure"]
+        AG --> Scan["Scan .agents/skills/ metadata index<br/>(under 600 tokens)"]
+        Scan --> Match{"Playbook Matched?"}
     end
 
-    subgraph Antigravity_Phase2["Phase 2: Body Activation"]
-        Match -->|Yes| LoadSkill["Load poteto-mode/SKILL.md & matched playbook"]
+    subgraph Phase2["Phase 2: Body Activation"]
+        Match -->|Yes| LoadSkill["Load poteto-mode and Target Playbook"]
+        Match -->|No| DirectExec["Direct Engineering Invariants"]
     end
 
-    subgraph PStack_Engine["Phase 3: SpaceX Engineering Execution"]
-        LoadSkill --> CheckInvariants["Enforce Non-Negotiables (AGENTS.md)"]
-        CheckInvariants --> PlanArtifact["Write Interactive Plan Artifact (RequestFeedback: true)"]
-        PlanArtifact --> ProceedGate{"User Clicks Proceed?"}
-        ProceedGate -->|Yes| SpawnWorker["invoke_subagent(Workspace: 'branch', Role: 'poteto-agent')"]
-        SpawnWorker --> CommentSweep["invoke_subagent(Role: 'comment-sicko', Model: 'flash_lite')"]
-        CommentSweep --> AuditGate["invoke_subagent(Role: 'thermo-nuclear-review', Model: 'flash')"]
-        AuditGate --> Done["Verified Unslop Diff & Report"]
+    subgraph Phase3["Phase 3: SpaceX Engineering Execution"]
+        LoadSkill --> CheckInvariants["Enforce Non-Negotiables<br/>AGENTS.md Invariants"]
+        DirectExec --> CheckInvariants
+        CheckInvariants --> PlanArtifact["Generate Interactive Plan<br/>RequestFeedback Gate"]
+        PlanArtifact --> ProceedGate{"Developer Clicks Proceed?"}
+        ProceedGate -->|Yes| SpawnWorker["Spawn poteto-agent<br/>Isolated Git Branch"]
+        SpawnWorker --> CommentSweep["Spawn comment-sicko<br/>Flash Lite AST Sweep"]
+        CommentSweep --> AuditGate["Spawn thermo-nuclear-review<br/>Flash High Audit Gate"]
+        AuditGate --> Done["Verified Clean Diff and Report"]
     end
 ```
 
