@@ -38,30 +38,45 @@ Originally developed for Cursor by Lauren Tan and researched across harnesses by
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    User["Developer Prompt<br/>/poteto-mode fix bug"] --> AG["Antigravity Discovery Engine"]
-
-    subgraph Phase1["Phase 1: Progressive Disclosure"]
-        AG --> Scan["Scan .agents/skills/ metadata index<br/>(under 600 tokens)"]
-        Scan --> Match{"Playbook Matched?"}
-    end
-
-    subgraph Phase2["Phase 2: Body Activation"]
-        Match -->|Yes| LoadSkill["Load poteto-mode and Target Playbook"]
-        Match -->|No| DirectExec["Direct Engineering Invariants"]
-    end
-
-    subgraph Phase3["Phase 3: SpaceX Engineering Execution"]
-        LoadSkill --> CheckInvariants["Enforce Non-Negotiables<br/>AGENTS.md Invariants"]
-        DirectExec --> CheckInvariants
-        CheckInvariants --> PlanArtifact["Generate Interactive Plan<br/>RequestFeedback Gate"]
-        PlanArtifact --> ProceedGate{"Developer Clicks Proceed?"}
-        ProceedGate -->|Yes| SpawnWorker["Spawn poteto-agent<br/>Isolated Git Branch"]
-        SpawnWorker --> CommentSweep["Spawn comment-sicko<br/>Flash Lite AST Sweep"]
-        CommentSweep --> AuditGate["Spawn thermo-nuclear-review<br/>Flash High Audit Gate"]
-        AuditGate --> Done["Verified Clean Diff and Report"]
-    end
+```text
+  Developer Prompt: "/poteto-mode fix race condition"
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│ Phase 1: Progressive Disclosure (Context Protected)         │
+│  • Antigravity scans .agents/skills/ index (under 600 tok)  │
+│  • Matches intent to target playbook & engineering skills   │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│ Phase 2: Interactive Plan & Proceed Gate                    │
+│  • Enforces SpaceX engineering invariants (AGENTS.md)       │
+│  • Writes standalone reproduction test to prove bug exists  │
+│  • Emits Plan Artifact with interactive [Proceed] button    │
+└────────────────────────┬────────────────────────────────────┘
+                         │ (Developer clicks Proceed)
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│ Phase 3: Isolated Subagent Execution (Leaf DAG)             │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │ poteto-agent (Gemini Flash, Workspace: "branch")      │  │
+│  │ Fixes root cause cleanly in isolated git branch       │  │
+│  └──────────────────────────┬────────────────────────────┘  │
+│                             ▼                               │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │ comment-sicko (Gemini Flash Lite, Fast AST Sweep)     │  │
+│  │ Deletes corpse code, excuse comments & dead paths     │  │
+│  └──────────────────────────┬────────────────────────────┘  │
+│                             ▼                               │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │ thermo-nuclear-review (Read-Only Security Auditor)    │  │
+│  │ Audits diff for regressions, leaks & security holes   │  │
+│  └───────────────────────────────────────────────────────┘  │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+                         ▼
+        VERDICT: PASS → Clean Diff & Merged Report
 ```
 
 ---
@@ -188,3 +203,9 @@ All original principles, concepts, and playbooks remain under their respective M
 ## License
 
 Released under the [MIT License](LICENSE). Copyright (c) 2025-2026 Lauren Tan, Michael Denyer, and pstack-antigravity contributors.
+
+---
+
+## Disclaimer
+
+This is an independent open-source community port. It is not affiliated with, sponsored by, or endorsed by Google LLC or Space Exploration Technologies Corp. (SpaceX). Google Antigravity is a product of Google LLC. SpaceX is a registered trademark of Space Exploration Technologies Corp.
