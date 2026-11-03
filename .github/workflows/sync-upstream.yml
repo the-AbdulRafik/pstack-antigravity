@@ -1,14 +1,18 @@
-name: Upstream Sync Check
+name: Upstream Sync & Alert
 
 on:
   schedule:
-    # Run weekly on Monday at 06:00 UTC
-    - cron: '0 6 * * 1'
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
 
 jobs:
   check-upstream:
-    name: Check for Upstream Drift
+    name: Check for Upstream Drift & Alert
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +24,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Fetch Upstream Release Metadata
+      - name: Check Upstream Repositories and Alert
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Checking upstream pstack releases..."
-          curl -s https://api.github.com/repos/michael-denyer/pstack-claude/releases/latest > upstream-latest.json
-          cat upstream-latest.json | grep "tag_name" || echo "No tag found"
+          node tools/check-upstream-drift.mjs
+
+      - name: Commit Updated Sync State
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .upstream-sync.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(sync): update upstream sync state" && git push)

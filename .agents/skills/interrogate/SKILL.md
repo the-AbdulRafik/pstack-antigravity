@@ -5,6 +5,9 @@ description: "Use for \"interrogate\", \"adversarial review\", \"multi-model rev
 
 # Interrogate
 
+> [!WARNING]
+> **Deprecation Advisory (Upstream Alignment):** Multi-model adversarial code review in the abstract is token-inefficient and prone to subjective YAGNI nitpicks. Divert verification tokens away from abstract review toward empirical runtime drivers ([`create-verification-skill`](../create-verification-skill/SKILL.md)) and formal verification ([`create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md)).
+
 On Codex, read the [platform mapping](../poteto-mode/references/codex-tools.md), including its per-skill notes, before following this skill.
 
 On GitHub Copilot, read the [platform mapping](../poteto-mode/references/copilot-tools.md), including its per-skill notes, before following this skill.

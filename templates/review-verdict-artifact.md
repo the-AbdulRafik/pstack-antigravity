@@ -30,12 +30,20 @@ pie title Diff Distribution
 
 ---
 
-## 3. Structural & 1,000-Line Rule Assessment
+## 3. Empirical Runtime Verification Evidence
+* **Reproduction Test / Script:** `{{REPRO_TEST_PATH}}`
+* **Execution Command:** `{{VERIFICATION_COMMAND}}`
+* **Execution Output Status:** `{{RUNTIME_RESULT}}` <!-- PASS: 0 errors | FAIL -->
+* **Invariants / Property Proofs:** `{{FORMAL_INVARIANTS_PROVED}}`
+
+---
+
+## 4. Structural & 1,000-Line Rule Assessment
 * **Spaghetti Branching Growth:** {{BRANCHING_ASSESSMENT}}
 * **1,000-Line Limit Violations:** {{LINE_LIMIT_ASSESSMENT}}
 * **Dead Abstractions / Unused Exports:** {{DEAD_CODE_ASSESSMENT}}
 
 ---
 
-## 4. Final Verdict Statement
+## 5. Final Verdict Statement
 {{FINAL_VERDICT_STATEMENT}}

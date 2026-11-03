@@ -22,6 +22,7 @@ const prWithIndependentReview = {
   diffSize: '+140 -20',
   unitTestsPassing: true,
   independentReviewer: 'thermo-nuclear-review',
+  empiricalEvidencePresent: true,
   independentReviewVerdict: 'PASS',
   allowedToShip: true,
 };
@@ -34,7 +35,22 @@ assert.strictEqual(
 assert.strictEqual(
   prWithIndependentReview.allowedToShip,
   true,
-  'Shipping allowed only after independent review pass'
+  'Shipping allowed only after independent review pass with empirical evidence'
+);
+
+// Gate check: Review pass without empirical verification proof is rejected
+const prWithAbstractReviewOnly = {
+  diffSize: '+140 -20',
+  independentReviewer: 'thermo-nuclear-review',
+  empiricalEvidencePresent: false,
+  independentReviewVerdict: 'REJECT (missing empirical verification)',
+  allowedToShip: false,
+};
+
+assert.strictEqual(
+  prWithAbstractReviewOnly.allowedToShip,
+  false,
+  'Abstract review without empirical runtime evidence must NOT allow shipping'
 );
 
 console.log('✔ PASS: eval-audit-gate');
