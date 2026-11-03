@@ -4,7 +4,7 @@
   "description": "SpaceX-inspired engineering playbooks and skills natively ported for Google Antigravity",
   "type": "module",
   "bin": {
-    "pstack-antigravity": "./bin/cli.js"
+    "pstack-antigravity": "bin/cli.js"
   },
   "scripts": {
     "generate": "node tools/generate-skills.mjs",
@@ -28,6 +28,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/the-AbdulRafik/pstack-antigravity.git"
+    "url": "git+https://github.com/the-AbdulRafik/pstack-antigravity.git"
   }
 }
