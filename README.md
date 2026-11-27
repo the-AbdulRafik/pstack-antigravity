@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Antigravity](https://img.shields.io/badge/Google-Antigravity%20Native-4285F4.svg)](https://antigravity.google)
 [![Tests](https://img.shields.io/badge/Tests-Passing%20(100%25)-success.svg)](evals/)
-[![Model: Gemini 3.8 Flash](https://img.shields.io/badge/Model-Gemini%203.8%20Flash-orange.svg)](#gemini-flash-first-architecture)
+[![Model: Gemini 4 Hydrogen](https://img.shields.io/badge/Model-Gemini%204%20Hydrogen-4285F4.svg)](#gemini-4-hydrogen-first-architecture)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **Lauren Tan ([@poteto](https://github.com/poteto))'s SpaceX-inspired engineering playbooks and skills, natively ported for the Google Antigravity agentic workspace.**
@@ -30,7 +30,7 @@ Originally developed for Cursor by Lauren Tan and researched across harnesses by
 
 * **First-Class Artifacts & Proceed Gates:** Multi-step plans and checkpoints render an interactive **Proceed** button in the Antigravity UI (`RequestFeedback: true`) before code is touched.
 * **Isolated Git Workspaces (`Workspace: "branch"`):** Subagents write and compile code in isolated background branches, preventing dirty working copies.
-* **Gemini Flash-First Architecture:** Tuned specifically for **Gemini 3.8 Flash (High Reasoning Effort)** for coordination and adversarial audits, with **Flash Lite** for ultra-fast comment stripping. Zero paid Pro or Argon tier required.
+* **Gemini 4 Hydrogen-First Architecture:** Engineered for Google's **Gemini 4 Hydrogen** lightweight tier with adjustable reasoning effort (`low`, `high`, `xhigh`) and unified 1M context. Coordinates seamlessly with **Carbon** and **Argon** for deep planning. Zero paid proprietary tiers required.
 * **Zero Recursion (Directed Acyclic Graph):** Subagents are strictly leaf nodes (`enableSubagentTools: false`) with read-only gates on auditors.
 * **Protected Context Budget:** Enforces a compact workspace invariants rule (`AGENTS.md` < 400 words / ~300 tokens), preserving the dedicated 20,000-token rules budget for deep pair programming.
 
@@ -60,12 +60,12 @@ Originally developed for Cursor by Lauren Tan and researched across harnesses by
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 3: Isolated Subagent Execution (Leaf DAG)             │
 │  ┌───────────────────────────────────────────────────────┐  │
-│  │ poteto-agent (Gemini Flash, Workspace: "branch")      │  │
+│  │ poteto-agent (Gemini 4 Hydrogen, Workspace: "branch") │  │
 │  │ Fixes root cause cleanly in isolated git branch       │  │
 │  └──────────────────────────┬────────────────────────────┘  │
 │                             ▼                               │
 │  ┌───────────────────────────────────────────────────────┐  │
-│  │ comment-sicko (Gemini Flash Lite, Fast AST Sweep)     │  │
+│  │ comment-sicko (Gemini 4 Hydrogen Lite, Fast AST Sweep)│  │
 │  │ Deletes corpse code, excuse comments & dead paths     │  │
 │  └──────────────────────────┬────────────────────────────┘  │
 │                             ▼                               │
@@ -159,20 +159,22 @@ To prevent runaway recursive loops where subagents spawn other subagents, all su
 
 | Subagent | Role | Model Tier | Tools & Permissions |
 | :--- | :--- | :--- | :--- |
-| **`poteto-agent`** | Worker Delegate | `Gemini 3.8 Flash` | `Workspace: "branch"`, Read/Write, `enableSubagentTools: false` |
-| **`comment-sicko`** | Comment Stripper | `Gemini 3.8 Flash Lite` | AST / Comment sweep, Read/Write, `enableSubagentTools: false` |
-| **`thermo-nuclear-review`** | Security Auditor | `Gemini 3.8 Flash (High)` | **Read-Only** (`enableWriteTools: false`), `enableSubagentTools: false` |
-| **`thermo-nuclear-code-quality`** | 1k-Line Auditor | `Gemini 3.8 Flash (High)` | **Read-Only** (`enableWriteTools: false`), `enableSubagentTools: false` |
+| **`poteto-agent`** | Worker Delegate | `Gemini 4 Hydrogen` | `Workspace: "branch"`, Read/Write, `enableSubagentTools: false` |
+| **`comment-sicko`** | Comment Stripper | `Gemini 4 Hydrogen (Low Effort)` | AST / Comment sweep, Read/Write, `enableSubagentTools: false` |
+| **`thermo-nuclear-review`** | Security Auditor | `Gemini 4 Carbon / Hydrogen (High)` | **Read-Only** (`enableWriteTools: false`), `enableSubagentTools: false` |
+| **`thermo-nuclear-code-quality`** | 1k-Line Auditor | `Gemini 4 Carbon / Hydrogen (High)` | **Read-Only** (`enableWriteTools: false`), `enableSubagentTools: false` |
 
 ---
 
-## Gemini Flash-First Architecture
+## Gemini 4 Hydrogen-First Architecture
 
 Upstream pstack relied on expensive proprietary tiers (`opus`, `fable`, `gpt-6-astra`). 
 
-`pstack-antigravity` is engineered from first principles to run on **Gemini 3.8 Flash with High Reasoning Effort**:
-* **High Reasoning Effort:** Delivers senior-architect reasoning, deep invariant checking, and thorough diff audits at 5x the speed and a fraction of the cost.
-* **Flash Lite:** Handles high-volume, low-complexity AST sweeps and comment stripping with near-instant turnarounds.
+`pstack-antigravity` is engineered from first principles for Google Antigravity's **Gemini 4 Hydrogen** model:
+* **Hydrogen High-Speed Execution:** Delivers senior-architect reasoning, deep invariant checking, and thorough diff audits at maximum speed and lower quota consumption.
+* **Adjustable Reasoning Effort:** Native support for `low`, `high`, and `xhigh` thinking levels, allowing tasks to scale cognitive effort dynamically.
+* **Multi-Model Orchestration:** Works alongside heavy frontier models like **Carbon** and **Argon** for deep planning, delegating rapid execution sweeps to a swarm of **Hydrogen** subagents.
+* **1-Million-Token Context Window:** Handles large repository contexts, extensive test suites, and multi-file diffs without context exhaustion.
 
 ---
 

@@ -1,7 +1,7 @@
 # Independent Audit Verdict: {{PR_OR_BRANCH}}
 
 > **Auditor Subagent:** `thermo-nuclear-review`  
-> **Model:** `Gemini 3.8 Flash (High Reasoning Effort)`  
+> **Model:** `Gemini 4 Hydrogen (High Reasoning Effort) / Carbon`  
 > **Verdict:** `{{VERDICT_STATUS}}` <!-- PASS | FAIL | BLOCKED -->  
 > **Timestamp:** `{{TIMESTAMP}}`
 

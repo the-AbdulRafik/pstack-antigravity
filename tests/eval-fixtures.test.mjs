@@ -9,7 +9,7 @@ const plan = renderTemplate('plan-artifact.md', {
   TASK_NAME: 'Authentication Caching',
   PLAYBOOK_NAME: 'feature',
   TARGET_BRANCH: 'feature/auth-cache',
-  MODEL_TIER: 'Gemini 3.8 Flash',
+  MODEL_TIER: 'Gemini 4 Hydrogen',
   OBJECTIVE_SUMMARY: 'Add Redis cache to session lookups.',
   PRINCIPLES_LIST: 'Laziness Protocol, Prove It Works',
   BLAST_RADIUS: 'auth-service only',

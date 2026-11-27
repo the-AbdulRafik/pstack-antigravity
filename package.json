@@ -1,7 +1,7 @@
 {
   "name": "pstack-antigravity",
-  "version": "1.1.0",
-  "description": "SpaceX-inspired engineering playbooks and skills natively ported for Google Antigravity",
+  "version": "1.2.0",
+  "description": "SpaceX-inspired engineering playbooks and skills natively ported for Google Antigravity, optimized for Gemini 4 Hydrogen",
   "type": "module",
   "bin": {
     "pstack-antigravity": "bin/cli.js"
@@ -18,6 +18,9 @@
   "keywords": [
     "antigravity",
     "google-antigravity",
+    "gemini-4",
+    "gemini-hydrogen",
+    "hydrogen",
     "pstack",
     "poteto-mode",
     "agent-skills",

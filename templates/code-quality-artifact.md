@@ -1,7 +1,7 @@
 # Code Quality Audit Report: {{PROJECT_OR_PR}}
 
 > **Auditor Subagent:** `thermo-nuclear-code-quality`  
-> **Model:** `Gemini 3.8 Flash (High Reasoning Effort)`  
+> **Model:** `Gemini 4 Hydrogen (High Reasoning Effort) / Carbon`  
 > **Verdict:** `{{QUALITY_VERDICT}}`  
 > **Max File Length Observed:** `{{MAX_FILE_LINES}} lines`
 
